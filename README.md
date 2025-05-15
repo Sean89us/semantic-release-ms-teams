@@ -32,6 +32,7 @@ This plugin is using an _incoming webhook_ to notify a teams channel. Here is
       "webhookUrl": "...",
       "title": "A new version has been released",
       "imageUrl": "http://...",
+      "adaptiveCardStyle": true,
       "showContributors": false,
       "notifyInDryRun": true,
     }]
@@ -39,16 +40,18 @@ This plugin is using an _incoming webhook_ to notify a teams channel. Here is
 }
 ```
 
-| Variable                                         | Details             | Description                                                                                                                   | 
-|--------------------------------------------------|---------------------|-------------------------------------------------------------------------------------------------------------------------------|
-| `webhookUrl` or `TEAMS_WEBHOOK_URL`              | **required**, url   | The incoming webhook url of the channel to publish release notes to.                                                          |
-| `webhookUrlDryRun` or `TEAMS_WEBHOOK_URL_DRYRUN` | _optional_, url     | Similar to `webhookUrl` or `TEAMS_WEBHOOK_URL`, but will be used in dryRun mode. Default: `webhookUrl` or `TEAMS_WEBHOOK_URL` |
-| `title`                                          | _optional_, text    | The title of the message. Default: _A new version has been released_                                                          |
-| `imageUrl`                                       | _optional_, url     | An image displayed in the message, next to the title. The image must be less than 200x200.                                    |
-| `showContributors`                               | _optional_, boolean | Whether or not the contributors should be displayed in the message. Default: `true`                                           |
-| `notifyInDryRun`                                 | _optional_, boolean | Whether or not the release notes will be send to Teams when semantic-release runs in dry-run mode. Default: `true`            |
+| Variable                                         | Details             | Description                                                                                                                         |
+|--------------------------------------------------|---------------------|-------------------------------------------------------------------------------------------------------------------------------------|
+| `webhookUrl` or `TEAMS_WEBHOOK_URL`              | **required**, url   | The incoming webhook url of the channel to publish release notes to.                                                                |
+| `webhookUrlDryRun` or `TEAMS_WEBHOOK_URL_DRYRUN` | _optional_, url     | Similar to `webhookUrl` or `TEAMS_WEBHOOK_URL`, but will be used in dryRun mode. Default: `webhookUrl` or `TEAMS_WEBHOOK_URL`       |
+| `title`                                          | _optional_, text    | The title of the message. Default: _A new version has been released_                                                                |
+| `imageUrl`                                       | _optional_, url     | An image displayed in the message, next to the title. The image must be less than 200x200.                                          |
+| `adaptiveCardStyle`                              | _optional_, boolean | Whether or not the webhook should be sent as `adaptiveCard` (for Power Automate webhooks) instead of `messageCard` Default: `false` |
+| `showContributors`                               | _optional_, boolean | Whether or not the contributors should be displayed in the message. Default: `true`                                                 |
+| `notifyInDryRun`                                 | _optional_, boolean | Whether or not the release notes will be send to Teams when semantic-release runs in dry-run mode. Default: `true`                  |
 
 ### Notes
+
 - `webhookUrl` is a property of the config object in `.releaserc.json`, and,
   `TEAMS_WEBHOOK_URL` is an environment variable. The config object can be
   useful to try the plugin, but most of the time, production environments
@@ -90,13 +93,16 @@ This plugin is using an _incoming webhook_ to notify a teams channel. Here is
 Here are some steps to test the plugin locally:
 
 - checkout the source code:
+
   ```sh
   git clone git@gitlab-ncsa.ubisoft.org:sragot/semantic-release-ms-teams.git
   cd semantic-release-ms-teams
   npm install
   ```
+
 - create a personal access token in github, then `export GH_TOKEN=...`
 - run `semantic-release` locally safely:
+
   ```sh
   npm link
   npm link semantic-release-ms-teams
